@@ -121,10 +121,10 @@ function About() {
           <SectionTitle>Our Leadership</SectionTitle>
           <TeamSection>
             <TeamMember>
-              <MemberName>Boochetati Manohar</MemberName>
+              <MemberName>Boochupati Manohar</MemberName>
               <MemberRole>Founder & CEO</MemberRole>
               <MemberBio>
-              Boochetati Manohar is a visionary tech entrepreneur with over 10 years of experience in the software industry. Manohar worked at several top tech companies before founding Hexafire4 in 2024. His passion for innovation and commitment to excellence drive the company's mission and vision.
+              Boochupati Manohar is a visionary tech entrepreneur with over 10 years of experience in the software industry. Manohar worked at several top tech companies before founding Hexafire4 in 2024. His passion for innovation and commitment to excellence drive the company's mission and vision.
               </MemberBio>
             </TeamMember>
             <TeamMember>

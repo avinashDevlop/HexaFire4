@@ -270,7 +270,7 @@ function Home() {
           <TestimonialText>
             "Hexafire4 transformed our business with their innovative AI solution. Their team's expertise, dedication, and collaborative approach not only met but exceeded our expectations. The scalable technology they implemented has positioned us for long-term success in our industry."
           </TestimonialText>
-          <TestimonialAuthor>- Boochetati Manohar, CEO of TechInnovate</TestimonialAuthor>
+          <TestimonialAuthor>- Boochupati Manohar, CEO of TechInnovate</TestimonialAuthor>
         </TestimonialCard>
       </TestimonialsSection>
 

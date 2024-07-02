@@ -27,7 +27,7 @@ const ServiceGrid = styled(motion.div)`
 `;
 
 const ServiceCard = styled(motion.div)`
-  background-color: ${({ theme }) => theme.secondary};
+  background-color: ${({ theme }) => theme.card};
   border-radius: 8px;
   padding: 2rem;
   color: ${({ theme }) => theme.text};
