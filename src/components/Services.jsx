@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FaCode, FaMobile, FaRobot, FaCloud, FaShieldAlt, FaChartBar } from 'react-icons/fa';
+import { FaMobile, FaCogs, FaChartBar, FaShoppingCart, FaGraduationCap, FaHospital, FaUtensils } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const ServicesContainer = styled.div`
   padding: 6rem 2rem 2rem;
@@ -58,7 +59,7 @@ const ServiceTitle = styled.h2`
 
 const ServiceDescription = styled.p`
   font-size: 1rem;
-    color: ${({ theme }) => theme.textSecondary};
+  color: ${({ theme }) => theme.textSecondary};
   line-height: 1.6;
 `;
 
@@ -80,50 +81,69 @@ const LearnMoreButton = styled(motion.button)`
 `;
 
 function Services() {
+  const navigate = useNavigate();
+
   const services = [
-    { icon: FaCode, title: 'Web Development', description: 'Custom websites and web applications tailored to your needs.' },
-    { icon: FaMobile, title: 'Mobile Apps', description: 'Native and cross-platform mobile applications for iOS and Android.' },
-    { icon: FaRobot, title: 'AI Solutions', description: 'Intelligent systems and machine learning algorithms to optimize your business processes.' },
-    { icon: FaCloud, title: 'Cloud Services', description: 'Scalable and secure cloud infrastructure and migration services.' },
-    { icon: FaShieldAlt, title: 'Cybersecurity', description: 'Comprehensive security solutions to protect your digital assets.' },
-    { icon: FaChartBar, title: 'Data Analytics', description: 'Advanced data analysis and visualization tools for informed decision-making.' },
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
+    { 
+      icon: FaGraduationCap, 
+      title: 'Learning Management System', 
+      description: 'Comprehensive e-learning platforms for educational institutions and corporate training.',
+      detailsPage: '/HomeBodyBlog'
     },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
+    { 
+      icon: FaCogs, 
+      title: 'ERP Solutions', 
+      description: 'Comprehensive Enterprise Resource Planning systems to streamline your business operations.',
+      detailsPage: '/ERPBlog'
+    },
+    { 
+      icon: FaMobile, 
+      title: 'Mobile Development', 
+      description: 'Native and cross-platform mobile applications for iOS and Android.',
+      detailsPage: '/services/mobile'
+    },
+    { 
+      icon: FaChartBar, 
+      title: 'Data Analytics Platform', 
+      description: 'Advanced data analysis and visualization tools for informed decision-making.',
+      detailsPage: '/services/analytics'
+    },
+    { 
+      icon: FaShoppingCart, 
+      title: 'E-commerce Solution', 
+      description: 'Full-featured online shopping platforms for businesses of all sizes.',
+      detailsPage: '/services/ecommerce'
+    },
+    { 
+      icon: FaHospital, 
+      title: 'Healthcare Management System', 
+      description: 'Integrated solutions for hospitals and healthcare providers.',
+      detailsPage: '/services/healthcare'
+    },
+    { 
+      icon: FaUtensils, 
+      title: 'Restaurant Management System', 
+      description: 'All-in-one solution for efficient restaurant operations.',
+      detailsPage: '/services/restaurant'
+    },
+  ];
 
   return (
     <ServicesContainer>
       <Title
-        initial={{ opacity: 0, y: -50 }}
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.5 }}
       >
         Our Services
       </Title>
-      <ServiceGrid
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
+      <ServiceGrid>
         {services.map((service, index) => (
           <ServiceCard
-            key={index}   
-            variants={cardVariants}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
           >
             <ServiceIcon>
               <service.icon />
@@ -131,8 +151,9 @@ function Services() {
             <ServiceTitle>{service.title}</ServiceTitle>
             <ServiceDescription>{service.description}</ServiceDescription>
             <LearnMoreButton
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => navigate(service.detailsPage)}
             >
               Learn More
             </LearnMoreButton>

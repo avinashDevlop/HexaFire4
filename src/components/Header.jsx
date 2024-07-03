@@ -163,7 +163,7 @@ function Header({ toggleTheme, theme }) {
             </MenuItems>
           )}
         </AnimatePresence>
-        <div>
+        <div style={{overflow:'hidden'}}>
           <MenuToggle onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? '✕' : '☰'}
           </MenuToggle>

@@ -131,7 +131,7 @@ function About() {
               <MemberName>Ramba Avinash</MemberName>
               <MemberRole>Co-founder & CTO</MemberRole>
               <MemberBio>
-              Ramba Avinash  where he gained a strong foundation in technology. Even before starting his formal education, he completed four impressive projects, showcasing his early dedication and talent in the field of computer science.
+              Ramba Avinash got a good start in technology. Before he even began his regular schooling, he showed a strong interest and skill in computers. This demonstrates he was talented with technology from a very young age.
               </MemberBio>
             </TeamMember>
           </TeamSection>

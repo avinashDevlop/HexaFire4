@@ -62,7 +62,8 @@ export const lightTheme = {
   accent: '#007bff',
   textPrimary: '#333333',
   textSecondary: '#555555',
-  card:'#cbd0e5'
+  card:'#fcd9d9',
+  blogHeader:'#333333'
 };
 
 export const darkTheme = {
@@ -73,5 +74,6 @@ export const darkTheme = {
   accent: '#007bff',
   textPrimary: '#ffffff',
   textSecondary: '#f4f4f4',
-card:'#1a1a2e'
+  card:'#1a1a2e',
+  blogHeader:'#1a1a1a'
 };

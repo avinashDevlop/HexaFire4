@@ -8,7 +8,8 @@ import Home from './components/Home';
 import About from './components/About';
 import Services from './components/Services';
 import Contact from './components/Contact';
-
+import HomeBodyBlog from './Blog/schoolAssistantBlog/Home/HomeBodyBlog';
+import ERPBlog from './Blog/ERPblog/ERPblog'
 function App() {
   const [theme, setTheme] = useState('light');
 
@@ -27,6 +28,9 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/schoolAssistant" element={<schoolAssistant/>}/>
+            <Route path="/HomeBodyBlog" element={<HomeBodyBlog />} /> 
+            <Route path="/ERPBlog" element={<ERPBlog />} /> 
           </Routes>
         </main>
         <Footer />
