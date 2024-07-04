@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -31,10 +31,6 @@ const Logo = styled(Link)`
   text-decoration: none;
   display: flex;
   align-items: center;
-
-  &:hover {
-    transform: scale(1.05);
-  }
 `;
 
 const LogoIcon = styled.span`
@@ -45,21 +41,20 @@ const LogoIcon = styled.span`
 const MenuItems = styled(motion.ul)`
   display: flex;
   list-style: none;
+  margin: 0;
+  padding: 0;
 
   @media (max-width: 768px) {
     flex-direction: column;
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: ${props => props.headerHeight}px;
     left: 0;
-    width: 100%;
+    right: 0;
+    bottom: 0;
     background-color: ${({ theme }) => theme.background};
     padding: 1rem 0;
-    display: none;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-
-    &.open {
-      display: flex;
-    }
+    overflow-y: auto;
+    z-index: 1000;
   }
 `;
 
@@ -111,7 +106,7 @@ const ThemeToggle = styled.button`
   cursor: pointer;
   margin-left: 1rem;
   transition: all 0.3s ease;
-
+ 
   &:hover {
     color: ${({ theme }) => theme.primary};
     transform: rotate(180deg);
@@ -120,10 +115,44 @@ const ThemeToggle = styled.button`
 
 function Header({ toggleTheme, theme }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [headerHeight, setHeaderHeight] = useState(0);
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const newIsMobile = window.innerWidth <= 768;
+      setIsMobile(newIsMobile);
+      if (!newIsMobile) {
+        setIsMenuOpen(true);
+      } else {
+        setIsMenuOpen(false);
+      }
+      if (headerRef.current) {
+        setHeaderHeight(headerRef.current.offsetHeight);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Call it initially
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const menuVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0 },
+    hidden: { 
+      x: '100%',
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
+      }
+    },
+    visible: { 
+      x: 0,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
+      }
+    }
   };
 
   const menuItems = [
@@ -134,27 +163,31 @@ function Header({ toggleTheme, theme }) {
   ];
 
   return (
-    <HeaderContainer>
+    <HeaderContainer ref={headerRef}>
       <Nav>
         <Logo to="/">
           <LogoIcon>🔥</LogoIcon>
           Hexafire4
         </Logo>
         <AnimatePresence>
-          {(isMenuOpen || window.innerWidth > 768) && (
+          {(isMenuOpen || !isMobile) && (
             <MenuItems
-              className={isMenuOpen ? 'open' : ''}
               initial="hidden"
               animate="visible"
               exit="hidden"
+              variants={isMobile ? menuVariants : {}}
+              headerHeight={headerHeight}
             >
               {menuItems.map((item, index) => (
                 <MenuItem
                   key={item.name}
-                  variants={menuVariants}
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: { opacity: 1 }
+                  }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <MenuLink to={item.path} onClick={() => setIsMenuOpen(false)}>
+                  <MenuLink to={item.path} onClick={() => isMobile && setIsMenuOpen(false)}>
                     <MenuIcon><item.icon /></MenuIcon>
                     {item.name}
                   </MenuLink>
@@ -164,9 +197,11 @@ function Header({ toggleTheme, theme }) {
           )}
         </AnimatePresence>
         <div style={{overflow:'hidden'}}>
-          <MenuToggle onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? '✕' : '☰'}
-          </MenuToggle>
+          {isMobile && (
+            <MenuToggle onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {isMenuOpen ? '✕' : '☰'}
+            </MenuToggle>
+          )}
           <ThemeToggle onClick={toggleTheme}>
             {theme === 'dark' ? <FaSun /> : <FaMoon />}
           </ThemeToggle>
